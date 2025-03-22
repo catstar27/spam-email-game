@@ -1,0 +1,14 @@
+[remap]
+
+importer="merovi.svgtexture2d"
+type="SVGTexture2D"
+uid="uid://cabfty8sh7swg"
+path="res://.godot/imported/monitor.svg-94a6df48510610a264cd68fdce2f8e04.sex"
+
+[deps]
+
+source_file="res://assets/textures/monitor.svg"
+dest_files=["res://.godot/imported/monitor.svg-94a6df48510610a264cd68fdce2f8e04.sex"]
+
+[params]
+

@@ -1,0 +1,14 @@
+[remap]
+
+importer="merovi.svgtexture2d"
+type="SVGTexture2D"
+uid="uid://daloiq3a8qdr0"
+path="res://.godot/imported/background.svg-b39a305b51bd7078f4ef9538fdc0144e.sex"
+
+[deps]
+
+source_file="res://assets/textures/background.svg"
+dest_files=["res://.godot/imported/background.svg-b39a305b51bd7078f4ef9538fdc0144e.sex"]
+
+[params]
+

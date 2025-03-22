@@ -1,0 +1,14 @@
+[remap]
+
+importer="merovi.svgtexture2d"
+type="SVGTexture2D"
+uid="uid://drqto4hq6dn8e"
+path="res://.godot/imported/desk.svg-689f8b93e20c5251ae4e4fb87213e634.sex"
+
+[deps]
+
+source_file="res://assets/textures/desk.svg"
+dest_files=["res://.godot/imported/desk.svg-689f8b93e20c5251ae4e4fb87213e634.sex"]
+
+[params]
+

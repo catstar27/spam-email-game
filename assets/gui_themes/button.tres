@@ -1,0 +1,14 @@
+[gd_resource type="StyleBoxTexture" script_class="SVGStyleBoxTexture" load_steps=3 format=3 uid="uid://ed3vrdhuhqeg"]
+
+[ext_resource type="Script" uid="uid://cr0ecvps0jlls" path="res://addons/merovi.svgtexture2d/svg_style_box_texture.gd" id="1_he440"]
+[ext_resource type="Texture2D" uid="uid://dyfdkhqeccb3q" path="res://assets/textures/button.svg" id="1_xky1o"]
+
+[resource]
+texture = ExtResource("1_xky1o")
+texture_margin_left = 6.0
+texture_margin_top = 6.0
+texture_margin_right = 6.0
+texture_margin_bottom = 6.0
+script = ExtResource("1_he440")
+Resolution = 1.0
+metadata/_custom_type_script = "uid://cr0ecvps0jlls"

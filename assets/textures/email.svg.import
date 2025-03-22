@@ -1,0 +1,14 @@
+[remap]
+
+importer="merovi.svgtexture2d"
+type="SVGTexture2D"
+uid="uid://cdud5d2h2hcd8"
+path="res://.godot/imported/email.svg-61dd79a611b22a831dd90ea15f62e063.sex"
+
+[deps]
+
+source_file="res://assets/textures/email.svg"
+dest_files=["res://.godot/imported/email.svg-61dd79a611b22a831dd90ea15f62e063.sex"]
+
+[params]
+
