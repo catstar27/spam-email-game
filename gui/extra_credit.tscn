@@ -1,0 +1,101 @@
+[gd_scene load_steps=3 format=3 uid="uid://dsx3yctx8m55w"]
+
+[ext_resource type="Script" uid="uid://d4iukf4yguira" path="res://gui/extra_credit.gd" id="1_6dwvx"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_j4vbf"]
+font_size = 32
+font_color = Color(0.32549, 0.270588, 0.509804, 1)
+
+[node name="ExtraCredit" type="Control"]
+custom_minimum_size = Vector2(600, 336)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -680.0
+offset_bottom = -384.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_6dwvx")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -168.0
+offset_right = 300.0
+offset_bottom = 168.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.788235, 0.72549, 0.807843, 1)
+
+[node name="Title" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -299.0
+offset_right = 299.0
+offset_bottom = 64.0
+grow_horizontal = 2
+theme_override_font_sizes/bold_font_size = 48
+bbcode_enabled = true
+text = "[b][color=#534582]Extra Credit!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 169.0
+offset_top = 80.0
+offset_right = 431.0
+offset_bottom = 112.0
+text = "Why is this Spam?"
+label_settings = SubResource("LabelSettings_j4vbf")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Justifications" type="GridContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+columns = 2
+
+[node name="Justification1" type="Button" parent="Justifications"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Justification 1"
+
+[node name="Justification2" type="Button" parent="Justifications"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Justification 2"
+
+[node name="Justification3" type="Button" parent="Justifications"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Justification 3"
+
+[node name="Justification4" type="Button" parent="Justifications"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Justification 4"
+
+[connection signal="pressed" from="Justifications/Justification1" to="." method="_on_justification_1_pressed"]
+[connection signal="pressed" from="Justifications/Justification2" to="." method="_on_justification_2_pressed"]
+[connection signal="pressed" from="Justifications/Justification3" to="." method="_on_justification_3_pressed"]
+[connection signal="pressed" from="Justifications/Justification4" to="." method="_on_justification_4_pressed"]

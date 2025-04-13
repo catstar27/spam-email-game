@@ -15,6 +15,11 @@ run/main_scene="uid://chn3u5tp5kva4"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[autoload]
+
+EmailDb="*res://emails/email_db.gd"
+Scoreboard="*res://score/scoreboard.gd"
+
 [display]
 
 window/size/viewport_width=1280
@@ -23,7 +28,7 @@ window/stretch/mode="canvas_items"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/merovi.svgtexture2d/plugin.cfg")
+enabled=PackedStringArray("res://addons/godot-sqlite/plugin.cfg", "res://addons/merovi.svgtexture2d/plugin.cfg")
 
 [gui]
 
@@ -35,3 +40,7 @@ theme/custom_font="uid://dfjyqhebeqr12"
 textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+
+[svgsprite]
+
+compress=false

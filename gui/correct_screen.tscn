@@ -1,0 +1,84 @@
+[gd_scene load_steps=3 format=3 uid="uid://cn0i8hv1vmoxg"]
+
+[ext_resource type="Script" uid="uid://cqh5loqnl2f88" path="res://gui/correct_screen.gd" id="1_c55nl"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_wl03x"]
+font_size = 32
+font_color = Color(0.180392, 0.545098, 0.341176, 1)
+
+[node name="CorrectScreen" type="Control"]
+custom_minimum_size = Vector2(600, 336)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -680.0
+offset_bottom = -384.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_c55nl")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -168.0
+offset_right = 300.0
+offset_bottom = 168.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.788235, 0.72549, 0.807843, 1)
+
+[node name="Title" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -299.0
+offset_right = 299.0
+offset_bottom = 64.0
+grow_horizontal = 2
+theme_override_font_sizes/bold_font_size = 48
+bbcode_enabled = true
+text = "[b][color=#2e8b57]Correct!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -73.5
+offset_top = -11.0
+offset_right = 73.5
+offset_bottom = 11.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Great Job!"
+label_settings = SubResource("LabelSettings_wl03x")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ContinueButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -73.0
+offset_top = -27.0
+offset_right = 74.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Continue"
+
+[connection signal="pressed" from="ContinueButton" to="." method="_on_continue_button_pressed"]

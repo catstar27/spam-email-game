@@ -1,0 +1,130 @@
+[gd_scene load_steps=10 format=3 uid="uid://e2jort3j4a43"]
+
+[ext_resource type="Script" uid="uid://djtngbxkni27f" path="res://gui/gui.gd" id="1_ioifv"]
+[ext_resource type="PackedScene" uid="uid://bqjwd82yrxwms" path="res://gui/email_display.tscn" id="1_yw5qc"]
+[ext_resource type="PackedScene" uid="uid://dij6k0eef1t0v" path="res://gui/main_menu.tscn" id="2_q46mf"]
+[ext_resource type="PackedScene" uid="uid://cn0i8hv1vmoxg" path="res://gui/correct_screen.tscn" id="4_n360k"]
+[ext_resource type="PackedScene" uid="uid://dsx3yctx8m55w" path="res://gui/extra_credit.tscn" id="5_hp187"]
+[ext_resource type="PackedScene" uid="uid://cnypmt6qxnvlk" path="res://gui/incorrect_screen.tscn" id="6_ytf3d"]
+[ext_resource type="PackedScene" uid="uid://bdwsngqw7clin" path="res://gui/scoreboard_screen.tscn" id="7_bk7cs"]
+[ext_resource type="PackedScene" uid="uid://cgctnl8yg1r7" path="res://gui/game_over.tscn" id="8_kvi6p"]
+[ext_resource type="PackedScene" uid="uid://esrdxovobvkv" path="res://gui/game_won.tscn" id="9_xqkfk"]
+
+[node name="GUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ioifv")
+
+[node name="MainMenu" parent="." instance=ExtResource("2_q46mf")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -168.0
+offset_right = 300.0
+offset_bottom = 168.0
+
+[node name="EmailDisplay" parent="." instance=ExtResource("1_yw5qc")]
+visible = false
+layout_mode = 1
+
+[node name="IncorrectScreen" parent="." instance=ExtResource("6_ytf3d")]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -168.0
+offset_right = 300.0
+offset_bottom = 168.0
+
+[node name="CorrectScreen" parent="." instance=ExtResource("4_n360k")]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -168.0
+offset_right = 300.0
+offset_bottom = 168.0
+
+[node name="ExtraCredit" parent="." instance=ExtResource("5_hp187")]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -168.0
+offset_right = 300.0
+offset_bottom = 168.0
+
+[node name="ScoreboardScreen" parent="." instance=ExtResource("7_bk7cs")]
+visible = false
+z_index = 3
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -168.0
+offset_right = 300.0
+offset_bottom = 168.0
+
+[node name="GameOver" parent="." instance=ExtResource("8_kvi6p")]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -168.0
+offset_right = 300.0
+offset_bottom = 168.0
+
+[node name="GameWon" parent="." instance=ExtResource("9_xqkfk")]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -168.0
+offset_right = 300.0
+offset_bottom = 168.0
+
+[connection signal="leaderboard" from="MainMenu" to="." method="_on_main_menu_leaderboard"]
+[connection signal="quit" from="MainMenu" to="." method="quit_game"]
+[connection signal="start" from="MainMenu" to="." method="_on_main_menu_start"]
+[connection signal="tutorial" from="MainMenu" to="." method="start_tutorial"]
+[connection signal="marked_spam" from="EmailDisplay" to="." method="_on_email_display_marked_spam"]
+[connection signal="replied" from="EmailDisplay" to="." method="_on_email_display_replied"]
+[connection signal="next_screen" from="IncorrectScreen" to="." method="_on_incorrect_screen_next_screen"]
+[connection signal="next_screen" from="CorrectScreen" to="." method="_on_correct_screen_next_screen"]
+[connection signal="correct" from="ExtraCredit" to="." method="_on_extra_credit_correct"]
+[connection signal="incorrect" from="ExtraCredit" to="." method="_on_extra_credit_incorrect"]
+[connection signal="go_to_menu" from="GameOver" to="." method="_on_game_over_go_to_menu"]
+[connection signal="quit" from="GameOver" to="." method="quit_game"]
+[connection signal="go_to_menu" from="GameWon" to="." method="_on_game_won_go_to_menu"]
+[connection signal="quit" from="GameWon" to="." method="quit_game"]
