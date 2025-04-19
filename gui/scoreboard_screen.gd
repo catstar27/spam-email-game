@@ -12,12 +12,12 @@ func score_sort(score1: ScoreEntry, score2: ScoreEntry)->bool:
 		elif score1.multiplier < score2.multiplier:
 			return false
 		else:
-			return score1.username > score2.username
+			return score1.username[0] > score2.username[0]
 
 ## Populates the scoreboard with scores
 func show_scoreboard(in_game: bool = true)->void:
 	show()
-	$Scores.text = ""
+	$Scores.text = "[color=#534582]"
 	var scores: Array[ScoreEntry] = Scoreboard.get_scores()
 	if Scoreboard.current_score != null && in_game:
 		scores.append(Scoreboard.current_score)
@@ -27,13 +27,18 @@ func show_scoreboard(in_game: bool = true)->void:
 	for score in scores:
 		if score == Scoreboard.current_score:
 			current_score_index = num
+			$Scores.text += "[color=#2e8b57]"
 		$Scores.text += str(num+1)+". "+score.username+": "+str(score.score)+"\n"
+		if score == Scoreboard.current_score:
+			$Scores.text += "[/color]"
 		num += 1
-		if num > 10:
-			if Scoreboard.current_score != null && in_game:
-				$Scores.text += "...\n"
+		if num > 9:
+			if Scoreboard.current_score != null && in_game && current_score_index == -1:
 				while current_score_index < 0:
 					if scores[num] == Scoreboard.current_score:
 						current_score_index = num
+				if num != 10:
+					$Scores.text += "...\n"
+				$Scores.text += "[color=#2e8b57]"
 				$Scores.text += str(num+1)+". "+scores[num].username+": "+str(scores[num].score)+"\n"
 			return

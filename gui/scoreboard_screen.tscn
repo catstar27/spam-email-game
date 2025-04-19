@@ -1,10 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://bdwsngqw7clin"]
+[gd_scene load_steps=2 format=3 uid="uid://bdwsngqw7clin"]
 
 [ext_resource type="Script" uid="uid://bawepbvwxr264" path="res://gui/scoreboard_screen.gd" id="1_vo60m"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_vo60m"]
-font_size = 24
-font_color = Color(0.32549, 0.270588, 0.509804, 1)
 
 [node name="ScoreboardScreen" type="Control"]
 custom_minimum_size = Vector2(600, 336)
@@ -48,7 +44,7 @@ text = "[b][color=#534582]Scoreboard"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Scores" type="Label" parent="."]
+[node name="Scores" type="RichTextLabel" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -58,20 +54,13 @@ anchor_bottom = 0.5
 offset_left = -20.0
 offset_top = -4.0
 offset_right = 20.0
-offset_bottom = 4.0
+offset_bottom = 7.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "test user: 1000
-test user: 1000
-test user: 1000
-test user: 1000
-test user: 1000
-test user: 1000
-test user: 1000
-test user: 1000
-test user: 1000
-test user: 1000"
-label_settings = SubResource("LabelSettings_vo60m")
+theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
+fit_content = true
+autowrap_mode = 0
 horizontal_alignment = 1
 vertical_alignment = 1
 

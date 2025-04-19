@@ -32,7 +32,10 @@ func set_email(email: Email, correct: bool, extra_credit: bool = false)->void:
 			%JustificationLabel.text = email.justification
 			%JustificationLabel.show()
 		else:
-			%AnswerLabel.text = "The email is spam!"
+			%AnswerLabel.text = "The email is "
+			if !email.is_spam:
+				%AnswerLabel.text += "not "
+			%AnswerLabel.text += "spam!"
 			%JustificationLabel.text = email.justification
 	show()
 
