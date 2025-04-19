@@ -1,31 +1,24 @@
 extends Control
 class_name GUI
 
-var emails: Array[Email]
-var email_index: int = 0
 var strikes: int = 0
 var prev_screen_extra_credit: bool = false ## Whether the previous screen was extra credit
 
 signal quit
 
-func next_email()->void:
-	email_index += 1
-	if email_index >= emails.size():
-		$GameWon.show()
-	else:
-		$EmailDisplay.set_email(emails[email_index])
-		$EmailDisplay.show()
+func _ready() -> void:
+	Scoreboard.score_updated.connect(set_score_label)
 
-func _on_main_menu_leaderboard() -> void:
-	$ScoreboardScreen.show()
-
-func _on_main_menu_start() -> void:
-	$MainMenu.hide()
-	emails = EmailDb.get_email_list()
-	email_index = 0
+## Connected to the main menu start button. Gets email list and initializes game state
+func start_game(username: String) -> void:
+	Scoreboard.new_score(username)
+	var emails: Array[Email] = EmailDb.get_email_list()
+	emails.shuffle()
 	strikes = 0
-	$EmailDisplay.set_email(emails[email_index])
-	$EmailDisplay.show()
+	$EmailDisplay.email_list = emails
+	$EmailDisplay.index = -1
+	$EmailDisplay.next_email()
+	$ColorRect/ScoreLabel.show()
 
 func quit_game() -> void:
 	quit.emit()
@@ -33,62 +26,16 @@ func quit_game() -> void:
 func start_tutorial() -> void:
 	pass
 
-func _on_email_display_marked_spam() -> void:
-	$EmailDisplay.hide()
-	if emails[email_index].is_spam:
-		$CorrectScreen.show()
-	else:
-		strikes += 1
-		$IncorrectScreen.set_email(emails[email_index])
-		$IncorrectScreen.show()
+func show_scoreboard(next_signal: Signal)->void:
+	$ScoreboardScreen.show_scoreboard()
+	await $ScoreboardScreen.hidden
+	next_signal.emit()
 
-func _on_email_display_replied() -> void:
-	$EmailDisplay.hide()
-	if !emails[email_index].is_spam:
-		$CorrectScreen.show()
-	else:
-		strikes += 1
-		$IncorrectScreen.set_email(emails[email_index])
-		$IncorrectScreen.show()
+func set_score_label()->void:
+	var score: ScoreEntry = Scoreboard.current_score
+	$ColorRect/ScoreLabel.text = "Score:\n"+str(score.score)+"\nMultiplier:\nx"+str(score.multiplier)+"\n"+"Strikes:\n"
+	for i in range(0, score.strikes):
+		$ColorRect/ScoreLabel.text += "X"
 
-func _on_incorrect_screen_next_screen() -> void:
-	$IncorrectScreen.hide()
-	if strikes >= 3:
-		$GameOver.show()
-	else:
-		$ScoreboardScreen.show()
-		await $ScoreboardScreen.hidden
-		next_email()
-
-func _on_correct_screen_next_screen() -> void:
-	$CorrectScreen.hide()
-	if prev_screen_extra_credit:
-		prev_screen_extra_credit = false
-		$ScoreboardScreen.show()
-		await $ScoreboardScreen.hidden
-		next_email()
-	elif emails[email_index].is_spam:
-		$ExtraCredit.set_email(emails[email_index])
-		$ExtraCredit.show()
-	else:
-		$ScoreboardScreen.show()
-		await $ScoreboardScreen.hidden
-		next_email()
-
-func _on_extra_credit_correct() -> void:
-	$ExtraCredit.hide()
-	prev_screen_extra_credit = true
-	$CorrectScreen.show()
-
-func _on_extra_credit_incorrect() -> void:
-	$ExtraCredit.hide()
-	$IncorrectScreen.set_email(emails[email_index], true)
-	$IncorrectScreen.show()
-
-func _on_game_over_go_to_menu() -> void:
-	$GameOver.hide()
-	$MainMenu.show()
-
-func _on_game_won_go_to_menu() -> void:
-	$GameWon.hide()
-	$MainMenu.show()
+func save_score()->void:
+	Scoreboard.write_score(Scoreboard.current_score)

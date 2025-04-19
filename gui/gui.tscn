@@ -1,20 +1,27 @@
-[gd_scene load_steps=10 format=3 uid="uid://e2jort3j4a43"]
+[gd_scene load_steps=12 format=3 uid="uid://e2jort3j4a43"]
 
 [ext_resource type="Script" uid="uid://djtngbxkni27f" path="res://gui/gui.gd" id="1_ioifv"]
 [ext_resource type="PackedScene" uid="uid://bqjwd82yrxwms" path="res://gui/email_display.tscn" id="1_yw5qc"]
 [ext_resource type="PackedScene" uid="uid://dij6k0eef1t0v" path="res://gui/main_menu.tscn" id="2_q46mf"]
-[ext_resource type="PackedScene" uid="uid://cn0i8hv1vmoxg" path="res://gui/correct_screen.tscn" id="4_n360k"]
+[ext_resource type="PackedScene" uid="uid://5th1vsijgost" path="res://gui/username_menu.tscn" id="3_xqkfk"]
 [ext_resource type="PackedScene" uid="uid://dsx3yctx8m55w" path="res://gui/extra_credit.tscn" id="5_hp187"]
-[ext_resource type="PackedScene" uid="uid://cnypmt6qxnvlk" path="res://gui/incorrect_screen.tscn" id="6_ytf3d"]
+[ext_resource type="PackedScene" uid="uid://cnypmt6qxnvlk" path="res://gui/answer_screen.tscn" id="6_ytf3d"]
 [ext_resource type="PackedScene" uid="uid://bdwsngqw7clin" path="res://gui/scoreboard_screen.tscn" id="7_bk7cs"]
 [ext_resource type="PackedScene" uid="uid://cgctnl8yg1r7" path="res://gui/game_over.tscn" id="8_kvi6p"]
 [ext_resource type="PackedScene" uid="uid://esrdxovobvkv" path="res://gui/game_won.tscn" id="9_xqkfk"]
+[ext_resource type="Texture2D" uid="uid://33uug24njkit" path="res://assets/textures/powerbutton.svg" id="10_4q42c"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_kvi6p"]
+font_size = 22
+font_color = Color(0, 0, 0, 1)
 
 [node name="GUI" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = -680.0
+offset_bottom = -384.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ioifv")
@@ -31,11 +38,7 @@ offset_top = -168.0
 offset_right = 300.0
 offset_bottom = 168.0
 
-[node name="EmailDisplay" parent="." instance=ExtResource("1_yw5qc")]
-visible = false
-layout_mode = 1
-
-[node name="IncorrectScreen" parent="." instance=ExtResource("6_ytf3d")]
+[node name="UsernameMenu" parent="." instance=ExtResource("3_xqkfk")]
 visible = false
 layout_mode = 1
 anchors_preset = 8
@@ -48,7 +51,11 @@ offset_top = -168.0
 offset_right = 300.0
 offset_bottom = 168.0
 
-[node name="CorrectScreen" parent="." instance=ExtResource("4_n360k")]
+[node name="EmailDisplay" parent="." instance=ExtResource("1_yw5qc")]
+visible = false
+layout_mode = 1
+
+[node name="AnswerScreen" parent="." instance=ExtResource("6_ytf3d")]
 visible = false
 layout_mode = 1
 anchors_preset = 8
@@ -76,7 +83,6 @@ offset_bottom = 168.0
 
 [node name="ScoreboardScreen" parent="." instance=ExtResource("7_bk7cs")]
 visible = false
-z_index = 3
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -114,17 +120,65 @@ offset_top = -168.0
 offset_right = 300.0
 offset_bottom = 168.0
 
-[connection signal="leaderboard" from="MainMenu" to="." method="_on_main_menu_leaderboard"]
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+offset_left = -9.0
+offset_top = 341.0
+offset_right = 111.0
+offset_bottom = 461.0
+color = Color(0.917647, 0.858824, 0.164706, 1)
+
+[node name="ScoreLabel" type="Label" parent="ColorRect"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -49.5
+offset_top = -56.5
+offset_right = 49.5
+offset_bottom = 56.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Score:
+0
+Multiplier:
+x1
+Strikes:
+
+"
+label_settings = SubResource("LabelSettings_kvi6p")
+
+[node name="PowerButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 583.0
+offset_top = 342.0
+offset_right = 715.0
+offset_bottom = 474.0
+scale = Vector2(0.125, 0.125)
+icon = ExtResource("10_4q42c")
+flat = true
+
+[connection signal="leaderboard" from="MainMenu" to="ScoreboardScreen" method="show_scoreboard"]
 [connection signal="quit" from="MainMenu" to="." method="quit_game"]
-[connection signal="start" from="MainMenu" to="." method="_on_main_menu_start"]
+[connection signal="start" from="MainMenu" to="UsernameMenu" method="show"]
 [connection signal="tutorial" from="MainMenu" to="." method="start_tutorial"]
-[connection signal="marked_spam" from="EmailDisplay" to="." method="_on_email_display_marked_spam"]
-[connection signal="replied" from="EmailDisplay" to="." method="_on_email_display_replied"]
-[connection signal="next_screen" from="IncorrectScreen" to="." method="_on_incorrect_screen_next_screen"]
-[connection signal="next_screen" from="CorrectScreen" to="." method="_on_correct_screen_next_screen"]
-[connection signal="correct" from="ExtraCredit" to="." method="_on_extra_credit_correct"]
-[connection signal="incorrect" from="ExtraCredit" to="." method="_on_extra_credit_incorrect"]
-[connection signal="go_to_menu" from="GameOver" to="." method="_on_game_over_go_to_menu"]
+[connection signal="username_entered" from="UsernameMenu" to="." method="start_game"]
+[connection signal="all_answered" from="EmailDisplay" to="." method="save_score"]
+[connection signal="all_answered" from="EmailDisplay" to="GameWon" method="show"]
+[connection signal="answered" from="EmailDisplay" to="AnswerScreen" method="set_email"]
+[connection signal="game_over" from="AnswerScreen" to="." method="save_score"]
+[connection signal="game_over" from="AnswerScreen" to="GameOver" method="show"]
+[connection signal="next_question" from="AnswerScreen" to="EmailDisplay" method="next_email"]
+[connection signal="show_scoreboard" from="AnswerScreen" to="." method="show_scoreboard"]
+[connection signal="start_extra_credit" from="AnswerScreen" to="ExtraCredit" method="set_email"]
+[connection signal="extra_credit_answered" from="ExtraCredit" to="AnswerScreen" method="set_email"]
+[connection signal="go_to_menu" from="GameOver" to="MainMenu" method="show"]
+[connection signal="go_to_menu" from="GameOver" to="ColorRect/ScoreLabel" method="show"]
 [connection signal="quit" from="GameOver" to="." method="quit_game"]
-[connection signal="go_to_menu" from="GameWon" to="." method="_on_game_won_go_to_menu"]
+[connection signal="go_to_menu" from="GameWon" to="MainMenu" method="show"]
+[connection signal="go_to_menu" from="GameWon" to="ColorRect/ScoreLabel" method="hide"]
 [connection signal="quit" from="GameWon" to="." method="quit_game"]
+[connection signal="pressed" from="PowerButton" to="." method="quit_game"]
