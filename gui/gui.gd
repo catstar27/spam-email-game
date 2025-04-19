@@ -1,10 +1,9 @@
 extends Control
 class_name GUI
 
-var strikes: int = 0
 var prev_screen_extra_credit: bool = false ## Whether the previous screen was extra credit
 
-signal quit
+signal quit ## When emitted, the game closes
 
 func _ready() -> void:
 	Scoreboard.score_updated.connect(set_score_label)
@@ -14,7 +13,6 @@ func start_game(username: String) -> void:
 	Scoreboard.new_score(username)
 	var emails: Array[Email] = EmailDb.get_email_list()
 	emails.shuffle()
-	strikes = 0
 	$EmailDisplay.email_list = emails
 	$EmailDisplay.index = -1
 	$EmailDisplay.next_email()
@@ -23,14 +21,13 @@ func start_game(username: String) -> void:
 func quit_game() -> void:
 	quit.emit()
 
-func start_tutorial() -> void:
-	pass
-
+## Shows the scoreboard and waits for it to close before emitting the given signal
 func show_scoreboard(next_signal: Signal)->void:
 	$ScoreboardScreen.show_scoreboard()
 	await $ScoreboardScreen.hidden
 	next_signal.emit()
 
+## Sets the score label text by accessing the current score
 func set_score_label()->void:
 	var score: ScoreEntry = Scoreboard.current_score
 	$ColorRect/ScoreLabel.text = "Score:\n"+str(score.score)+"\nMultiplier:\nx"+str(score.multiplier)+"\n"+"Strikes:\n"

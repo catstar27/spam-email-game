@@ -17,7 +17,7 @@ func set_email(email: Email, correct: bool, extra_credit: bool = false)->void:
 	current_email = email
 	current_correct = correct
 	current_extra_credit = extra_credit
-	Scoreboard.answer_given(correct, extra_credit)
+	Scoreboard.answer_given(correct, extra_credit) ## Logs the answer in the score entry
 	%JustificationLabel.hide()
 	if correct:
 		$Title.text = "[b][color="+CORRECT_COLOR+"]Correct!"
@@ -27,11 +27,11 @@ func set_email(email: Email, correct: bool, extra_credit: bool = false)->void:
 		$Title.text = "[b][color="+INCORRECT_COLOR+"]Incorrect!"
 		%AnswerLabel.label_settings.font_color = Color.from_string(INCORRECT_COLOR, Color.DARK_RED)
 		%JustificationLabel.label_settings.font_color = Color.from_string(INCORRECT_COLOR, Color.DARK_RED)
-		if extra_credit:
+		if extra_credit: ## If extra credit and wrong, show correct justification
 			%AnswerLabel.text = "Correct Justification:"
 			%JustificationLabel.text = email.justification
 			%JustificationLabel.show()
-		else:
+		else: ## If incorrect, give correct answer
 			%AnswerLabel.text = "The email is "
 			if !email.is_spam:
 				%AnswerLabel.text += "not "
@@ -39,6 +39,7 @@ func set_email(email: Email, correct: bool, extra_credit: bool = false)->void:
 			%JustificationLabel.text = email.justification
 	show()
 
+## Emit signal corresponding to next state
 func _on_continue_button_pressed() -> void:
 	hide()
 	if current_correct && current_email.is_spam && !current_extra_credit:

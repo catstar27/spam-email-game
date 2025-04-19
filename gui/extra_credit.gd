@@ -14,6 +14,7 @@ func set_email(new_email: Email)->void:
 		justification_buttons[i].text = false_justifications[i-1]
 	show()
 
+## Emit the answered signal with proper parameters
 func _on_justification_1_pressed() -> void:
 	if %Justification1.text == email.justification:
 		extra_credit_answered.emit(email, true, true)
