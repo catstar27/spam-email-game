@@ -6,7 +6,7 @@ extends Node2D
 var song_index: int = -1 ## Index of song playing
 
 func _ready() -> void:
-	if !DirAccess.dir_exists_absolute("user://data.db"):
+	if !FileAccess.file_exists("user://data.db"):
 		DirAccess.copy_absolute("res://data.db", "user://data.db")
 	music.shuffle()
 	play_next_song()
